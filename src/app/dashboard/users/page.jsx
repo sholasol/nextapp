@@ -6,10 +6,11 @@ import Image from "next/image";
 import Link from "next/link";
 import {MdContacts, MdDeleteForever} from 'react-icons/md'
 
-const UserPage = async (searchParams) => {
+const UserPage = async ({searchParams}) => {
 
   const q = searchParams?.q || "";
-  const users = await fetchUsers(q);
+  const page = searchParams?.page || 1; //handling pagination
+  const {count, users} = await fetchUsers(q, page);
 
  
   return (
@@ -69,7 +70,7 @@ const UserPage = async (searchParams) => {
           ))}
         </tbody> 
       </table>
-      <Pagination />
+      <Pagination count={count}/>
     </div>
   )
 }
