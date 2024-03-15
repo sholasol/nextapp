@@ -1,11 +1,11 @@
 import { updateUser } from '@/app/lib/actions';
-import { fetchUsers } from '@/app/lib/data';
+import { fetchUser } from '@/app/lib/data';
 import styles from '@/app/ui/dashboard/users/singleUser/singleUser.module.css'
 import Image from 'next/image'
 
 const SingleUser = async ({params}) => {
   const {id} = params;
-  const user = await fetchUsers(id);
+  const user = await fetchUser(id);
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
@@ -16,7 +16,7 @@ const SingleUser = async ({params}) => {
       </div>
       <div className={styles.formContainer}>
         <form action={updateUser} className={styles.form}>
-          {/* <input type="hidden" name="id" value={user.id}/> */}
+          <input type="hidden" name="id" value={user.id}/>
           <label>Username</label>
           <input type="text" name="username" placeholder={user.username} />
           <label>Email</label>

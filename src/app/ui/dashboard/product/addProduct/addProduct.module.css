@@ -40,3 +40,12 @@
     border-radius: 5px;
     cursor: pointer;
 }
+.error {
+    width: 100%;
+    padding: 20px;
+    color: #fff;
+    background-color: #fc0606;
+    text-align: center;
+    justify-content: center;
+    margin-top: 5px;
+}

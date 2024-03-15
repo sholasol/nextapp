@@ -1,16 +1,22 @@
+import { deleteUser } from "@/app/lib/actions";
 import { fetchUsers } from "@/app/lib/data";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
 import Search from "@/app/ui/dashboard/search/search";
 import styles from "@/app/ui/dashboard/users/users.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import {MdContacts, MdDeleteForever} from 'react-icons/md'
+import {MdContacts, MdDeleteForever} from 'react-icons/md';
+
+
 
 const UserPage = async ({searchParams}) => {
 
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1; //handling pagination
   const {count, users} = await fetchUsers(q, page);
+
+
+
 
  
   return (
@@ -58,7 +64,7 @@ const UserPage = async ({searchParams}) => {
                       <MdContacts />
                     </button>
                   </Link>
-                  <form action="">
+                  <form action={deleteUser}>
                     <input type="hidden" name="id" value={(user.id)} />
                     <button className={`${styles.button} ${styles.delete}`}>
                      <MdDeleteForever /> 

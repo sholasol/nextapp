@@ -1,9 +1,31 @@
+"use client";
+
+import { useRouter } from 'next/navigation'
+import {useFormState} from 'react-dom'
+import { useEffect } from 'react'
+import { toast } from 'react-toastify';
 import styles from '@/app/ui/dashboard/product/addProduct/addProduct.module.css'
+import { addProduct } from '@/app/lib/actions';
 
 const AddProduct = () => {
+  const [state, formAction] = useFormState(addProduct, undefined)
+  const router = useRouter();
+
+  useEffect(() => {
+    if(state?.success){
+      toast.success("Product created successfully!");
+      router.push("/dashboard/products")
+    }
+    if(state?.error){
+      toast.error("Product creation failed!");
+      router.push("/dashboard/products/add");
+    }
+    
+  }, [state?.success, router]);
+
   return (
     <div className={styles.container}>
-      <form action="" className={styles.form}>
+      <form action={formAction} className={styles.form}>
         <input type="text" placeholder="title" name="title" required />
         <select name="cat" id="cat">
           <option value="general">Choose a Category</option>
@@ -23,6 +45,7 @@ const AddProduct = () => {
           placeholder="Description"
         ></textarea>
         <button type="submit">Submit</button>
+        {state?.error && <p className={styles.error}>{state.error}</p>}
       </form>
     </div>
   )

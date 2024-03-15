@@ -5,6 +5,7 @@ import styles from '@/app/ui/dashboard/product/product.module.css'
 import { fetchProducts } from "@/app/lib/data";
 import {MdChromeReaderMode, MdDeleteForever} from 'react-icons/md'
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
+import { deleteProduct } from "@/app/lib/actions";
 
 const Products = async({searchParams}) => {
    const q = searchParams?.q || "";
@@ -55,7 +56,7 @@ const Products = async({searchParams}) => {
                       <MdChromeReaderMode />
                     </button>
                   </Link>
-                  <form action="">
+                  <form action={deleteProduct}>
                     <input type="hidden" name="id" value={product.id} />
                     <button className={`${styles.button} ${styles.delete}`}>
                       <MdDeleteForever />
