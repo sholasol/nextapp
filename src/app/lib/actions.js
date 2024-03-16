@@ -4,6 +4,7 @@ import { connectToDb } from "./connection";
 import { Product, User } from "./models";
 import { redirect } from "next/navigation";
 import bcrypt from 'bcrypt'
+import { signIn } from "../auth";
 
 export const addUser = async (previousState, formData) => {
 
@@ -260,7 +261,7 @@ export const authenticate = async (previousState, formData)=>{
     const {email, password} = Object.fromEntries(formData);
 
     try {
-        
+        await signIn("credentials", {email, password});
     } catch (error) {
         console.log(error)
         return {error:"Wrong credentials"};
